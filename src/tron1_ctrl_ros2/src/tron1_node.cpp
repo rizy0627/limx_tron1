@@ -93,48 +93,48 @@ public:
 
 private:
     // --- Service Callbacks ---
-
+    // 蹲起模式
     void cbStandMode(const std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
         handleTriggerService("request_stand_mode", response);
     }
-
+    // 行走模式
     void cbWalkMode(const std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
         handleTriggerService("request_walk_mode", response);
     }
-
+    // 蹲下
     void cbSitDown(const std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
         handleTriggerService("request_sitdown", response);
     }
-
+    // 摔倒恢复
     void cbRecover(const std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
         handleTriggerService("request_recover", response);
     }
-
+    // 紧急停止
     void cbEmgyStop(const std::shared_ptr<std_srvs::srv::Trigger::Request>, std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
         handleTriggerService("request_emgy_stop", response);
     }
-
+    // 楼梯模式
     void cbStairMode(const std::shared_ptr<std_srvs::srv::SetBool::Request> request, std::shared_ptr<std_srvs::srv::SetBool::Response> response) {
         handleSetBoolService("request_stair_mode", request->data, response);
     }
-
+    // 踏步模式（轮足是否可用，存疑？）
     void cbMarktimeMode(const std::shared_ptr<std_srvs::srv::SetBool::Request> request, std::shared_ptr<std_srvs::srv::SetBool::Response> response) {
         handleSetBoolService("request_marktime_mode", request->data, response);
     }
-
+    // 启用里程计
     void cbEnableOdom(const std::shared_ptr<std_srvs::srv::SetBool::Request> request, std::shared_ptr<std_srvs::srv::SetBool::Response> response) {
         handleSetBoolService("request_enable_odom", request->data, response);
     }
-
+    // 启用IMU
     void cbEnableImu(const std::shared_ptr<std_srvs::srv::SetBool::Request> request, std::shared_ptr<std_srvs::srv::SetBool::Response> response) {
         handleSetBoolService("request_enable_imu", request->data, response);
     }
-
+    // 调整高度信息（1：上升5cm; -1：下降5cm --> -15cm -- 15cm）
     void cbSetBaseHeight(const std::shared_ptr<tron1_ctrl_ros2::srv::SetBaseHeight::Request> request, std::shared_ptr<tron1_ctrl_ros2::srv::SetBaseHeight::Response> response) {
         json resp = sendSyncRequest("request_base_height", {{"direction", request->direction}});
         fillResponse(resp, response->success, response->message);
     }
-
+    // 设置灯效
     void cbSetLightEffect(const std::shared_ptr<tron1_ctrl_ros2::srv::SetLightEffect::Request> request, std::shared_ptr<tron1_ctrl_ros2::srv::SetLightEffect::Response> response) {
         json resp = sendSyncRequest("request_light_effect", {{"effect", request->effect_id}});
         fillResponse(resp, response->success, response->message);
@@ -374,7 +374,7 @@ private:
         if (data.contains("imu")) msg.imu_status = data["imu"].get<std::string>();
         if (data.contains("camera")) msg.camera_status = data["camera"].get<std::string>();
         if (data.contains("motor")) msg.motor_status = data["motor"].get<std::string>();
-        if (data.contains("battery")) msg.battery = data["battery"].get<int8_t>();
+        if (data.contains("battery")) msg.battery = data["battery"].get<std::string>();
         if (data.contains("status")) msg.status = data["status"].get<std::string>();
 
         status_pub_->publish(msg);
