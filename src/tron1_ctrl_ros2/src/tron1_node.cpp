@@ -38,7 +38,7 @@ public:
         this->declare_parameter<std::string>("server_uri", "ws://10.192.1.2:5000");
         this->get_parameter("server_uri", server_uri_);
         
-        this->declare_parameter<std::string>("accid", ""); // Default empty, auto-discover
+        this->declare_parameter<std::string>("accid", "WF_TRON1A_519"); // Default empty, auto-discover
         this->get_parameter("accid", accid_);
 
         this->declare_parameter<double>("max_linear_x", 1.0); // m/s corresponding to ratio 1.0
